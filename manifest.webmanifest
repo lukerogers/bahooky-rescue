@@ -1,0 +1,16 @@
+{
+  "id": "./",
+  "name": "Bahooky Rescue!",
+  "short_name": "Bahooky",
+  "description": "Rescue silly bears from stuck urns! A gentle, touch-friendly game with four happy levels.",
+  "lang": "en",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f8f4e9",
+  "theme_color": "#f8f4e9",
+  "icons": [
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

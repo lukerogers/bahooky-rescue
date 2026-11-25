@@ -43,6 +43,24 @@ npx wrangler pages deploy dist --project-name=bahooky-rescue
 
 The game, including its MP3s, is served as static files; progress remains in memory and resets on reload as it does locally.
 
+## Install on an iPad
+
+1. Deploy the site over **HTTPS** (the Cloudflare Pages URL above works).
+2. Open that URL in **Safari** on the iPad.
+3. Tap **Share → Add to Home Screen**. If shown, leave **Open as Web App** enabled, then tap **Add**.
+4. Launch **Bahooky Rescue!** from the Home Screen. It opens as a standalone app without Safari’s normal browser toolbar.
+5. Keep the app open online for a few seconds on its first launch so offline files can finish downloading. Then try closing it, enabling Airplane Mode, and opening it again.
+
+The game and all eight sound recordings are cached for offline play; sound still starts off and requires a tap to enable. No App Store or Apple developer account is needed. Installing does **not** save progress: reloading or relaunching starts a fresh game. iPadOS may clear cached website data under storage pressure; reconnect and open the app to restore offline files.
+
+An ordinary `http://<LAN-IP>:3000` address is fine for online play, but cannot register the service worker needed for offline support. Use HTTPS for iPad testing; the `localhost` development exception only applies on the device running the browser.
+
+### Offline updates and development
+
+`npm run build` includes the manifest, icons, and service worker in `dist/` and gives each changed build a new content-based cache version. Updates download when the app is opened online and wait until all existing game windows are closed before activating, so an ongoing game is not interrupted. Only this app’s old caches are removed.
+
+When serving the source directly with `npm start`, bump `VERSION` in `sw.js` after editing cached files, or unregister the worker and clear its cache in browser developer tools. Add any new runtime files to `APP_FILES` in `sw.js` so they also work offline. To regenerate the committed PNG app icons after changing `assets/icon.svg`, run `npm run icons` (requires the same Chrome/Chromium setup as browser tests).
+
 ## Play
 
 1. Choose **Let’s free some bahookies!**
@@ -75,7 +93,7 @@ All 22 rescues earn **2,720 points** and all four stickers. Each bear needs resc
 
 ```sh
 npm test              # 14 pure game-logic and audio tests
-npm run test:browser  # 12 Chromium tests: desktop + touch-phone
+npm run test:browser  # 18 Chromium tests: desktop + touch-phone
 npm run test:all      # both suites
 ```
 
@@ -89,6 +107,7 @@ Set `BROWSER_PATH` to a Chrome/Chromium executable to override that choice. Brow
 
 ### Verified
 
+- PWA manifest, PNG icon dimensions, and Apple Home Screen metadata. Offline reopening, gameplay, and decoding all eight sound clips at both the site root and a built subdirectory URL.
 - Actual browser touch events: tapping, directional/long vertical swiping, small finger jitter, touch cancellation, no duplicate counts, and no play-field scroll. Mouse dragging is checked too.
 - Jiggle animation and minimum target size.
 - Sound opt-in, running Web Audio context, exactly one MP3 boing per wiggle, exactly one MP3 fart per rescue (including level-ending rescues), visible rescue puffs, no ambient farts, no duplicate sounds after pause/resume, and silent muting.
@@ -101,7 +120,7 @@ Set `BROWSER_PATH` to a Chrome/Chromium executable to override that choice. Brow
 
 ### Not yet verified
 
-Physical touchscreen devices, Safari/iOS and Firefox, perceived sound/volume through real speakers, and playtesting with the intended child. Browser touch tests emulate a 390 × 844 phone in Chromium; they are not a substitute for those checks. Adjust comfort, pacing, and humor based on his response.
+Physical touchscreen devices, Safari/iPadOS Home Screen installation and offline relaunch, Firefox, perceived sound/volume through real speakers, and playtesting with the intended child. Browser touch tests emulate a 390 × 844 phone in Chromium; they are not a substitute for those checks. Adjust comfort, pacing, and humor based on his response.
 
 ## Files
 
@@ -113,5 +132,8 @@ Physical touchscreen devices, Safari/iOS and Firefox, perceived sound/volume thr
 - `src/audio.js` — opt-in random cached MP3 boing/fart playback and a synthesized celebration melody.
 - `assets/boing1.mp3` through `assets/boing3.mp3`, `assets/fart1.mp3` through `assets/fart5.mp3` — the eight supplied recordings (unchanged).
 - `src/art.js`, `assets/icon.svg` — original bears, urns, backgrounds, stickers, favicon.
+- `manifest.webmanifest`, `sw.js`, `src/pwa.js` — installation metadata, versioned offline cache, and service worker registration.
+- `assets/apple-touch-icon.png`, `assets/icon-192.png`, `assets/icon-512.png`, `scripts/generate-icons.js` — Home Screen icons and their generator.
+- `scripts/build.js` — static deployment build and automatic offline cache versioning.
 - `server.js`, `package.json`, `package-lock.json` — local server and commands.
-- `tests/engine.test.js`, `tests/audio.test.js`, `tests/browser/game.spec.js`, `playwright.config.js` — automated checks.
+- `tests/engine.test.js`, `tests/audio.test.js`, `tests/browser/game.spec.js`, `tests/browser/pwa.spec.js`, `playwright.config.js` — automated checks.
