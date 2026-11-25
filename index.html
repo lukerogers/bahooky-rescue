@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f8f4e9">
+  <meta name="description" content="Rescue silly bears from stuck urns! A gentle, touch-friendly game with four happy levels.">
+  <title>Bahooky Rescue! — A very silly bear game</title>
+  <link rel="icon" type="image/svg+xml" href="assets/icon.svg">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="src/main.js"></script>
+</head>
+<body>
+  <main class="game-shell">
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="Bahooky Rescue home"><span class="brand-mark" aria-hidden="true">b!</span><span>little game. <strong>BIG giggles.</strong></span></a>
+      <div class="toolbar">
+        <button id="sound-button" class="tool-button" aria-pressed="false" aria-label="Turn sound on"><span id="sound-icon" aria-hidden="true">♫</span><span id="sound-label">Sound off</span></button>
+        <button id="pause-button" class="tool-button" aria-label="Pause game" disabled><span id="pause-icon" aria-hidden="true">Ⅱ</span><span id="pause-label">Pause</span></button>
+      </div>
+    </header>
+
+    <section class="title-row" aria-labelledby="game-title">
+      <div><p class="eyebrow"><span class="tiny-star" aria-hidden="true">✦</span> THE GREAT BEAR UN-STUCKING</p><h1 id="game-title">Bahooky <span>Rescue!</span></h1><p class="tagline">Small urns. Big bahookies. A whole lot of trouble.</p></div>
+      <div class="score-card"><span class="score-star" aria-hidden="true">★</span><div><span class="score-label">HAPPY POINTS</span><strong id="total-score">0</strong></div></div>
+    </section>
+
+    <section class="play-card" aria-label="Bear rescue game">
+      <div class="level-bar">
+        <div class="level-info"><span id="level-number" class="level-number">01</span><div><span id="level-kicker" class="level-kicker">LEVEL 1 OF 4</span><h2 id="level-name">Sunny Meadow</h2></div></div>
+        <div class="rescue-progress"><span><strong id="rescued-count">0</strong> / <span id="rescue-goal">4</span> bahookies freed</span><div id="progress-dots" class="progress-dots" aria-hidden="true"></div></div>
+      </div>
+
+      <div id="world" class="world theme-meadow" aria-label="Play field. Tap or swipe a stuck bear to free its bahooky.">
+        <div id="scenery" class="scenery" aria-hidden="true"></div>
+        <div class="location-sign" aria-hidden="true"><span id="location-icon">✿</span> <span id="location-name">the sunny meadow</span></div>
+        <div id="props" class="props" aria-hidden="true"></div>
+        <div id="bears" class="bears"></div>
+        <div id="effects" class="effects" aria-hidden="true"></div>
+        <div id="overlay" class="overlay"></div>
+      </div>
+
+      <div class="help-bar"><span class="hand-icon" aria-hidden="true">↔</span><p id="help-text"><strong>Tap or swipe an urn.</strong> Every wiggle helps!</p><span class="no-rush"><span aria-hidden="true">♡</span> No rush. No losing.</span></div>
+    </section>
+
+    <section class="reward-section" aria-label="Your reward stickers">
+      <div class="reward-heading"><h2>Your silly sticker collection</h2><span>One happy level. One new sticker.</span></div>
+      <div id="sticker-shelf" class="sticker-shelf"></div>
+    </section>
+    <footer>Made for giggles, not for rushing. <span aria-hidden="true">✦</span> Tap, swipe, or use Tab + Enter.</footer>
+  </main>
+  <div id="announcer" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+</body>
+</html>
