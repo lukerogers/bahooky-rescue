@@ -93,23 +93,24 @@ All 22 rescues earn **2,720 points** and all four stickers. Each bear needs resc
 
 ```sh
 npm test              # 14 pure game-logic and audio tests
-npm run test:browser  # 18 Chromium tests: desktop + touch-phone
+npm run test:browser  # 24 browser tests: Chromium desktop/phone + WebKit tablet
 npm run test:all      # both suites
 ```
 
 Browser tests use installed Windows Chrome when available. Elsewhere, install the test browser once:
 
 ```sh
-npx playwright install chromium
+npx playwright install chromium webkit
 ```
 
-Set `BROWSER_PATH` to a Chrome/Chromium executable to override that choice. Browser tests automatically start the local server. Failure screenshots and traces go into `test-results/`.
+Install WebKit with `npx playwright install webkit` even when using system Chrome. The `ipad-webkit` project checks tablet portrait/landscape layout and touch rescues, including simulated lack of CSS math functions and `inset`. Set `BROWSER_PATH` to a Chrome/Chromium executable to override the Chromium choice. Browser tests automatically start the local server. Failure screenshots and traces go into `test-results/`.
 
 ### Verified
 
 - PWA manifest, PNG icon dimensions, and Apple Home Screen metadata. Offline reopening, gameplay, and decoding all eight sound clips at both the site root and a built subdirectory URL.
 - Actual browser touch events: tapping, directional/long vertical swiping, small finger jitter, touch cancellation, no duplicate counts, and no play-field scroll. Mouse dragging is checked too.
 - Jiggle animation and minimum target size.
+- Tablet scenery and start-dialog bounds in portrait/landscape, plus touch rescues in Chromium and WebKit. Layout remains playable when CSS math functions and `inset` are stripped to simulate older iPad WebKit.
 - Sound opt-in, running Web Audio context, exactly one MP3 boing per wiggle, exactly one MP3 fart per rescue (including level-ending rescues), visible rescue puffs, no ambient farts, no duplicate sounds after pause/resume, and silent muting.
 - All eight actual MP3s (three boings and five farts) serve as `audio/mpeg` and decode in Chromium. Unit tests cover selection of every recording, caching, cleanup, cancellation of delayed loads on pause/mute, and failed downloads/decoding.
 - Random bounded paths and direction changes across seeds; seven bears sharing three exclusive urn stations without deadlocks across 20 seeded runs.
@@ -120,7 +121,7 @@ Set `BROWSER_PATH` to a Chrome/Chromium executable to override that choice. Brow
 
 ### Not yet verified
 
-Physical touchscreen devices, Safari/iPadOS Home Screen installation and offline relaunch, Firefox, perceived sound/volume through real speakers, and playtesting with the intended child. Browser touch tests emulate a 390 × 844 phone in Chromium; they are not a substitute for those checks. Adjust comfort, pacing, and humor based on his response.
+Physical touchscreen devices, Safari/iPadOS Home Screen installation and offline relaunch, Firefox, perceived sound/volume through real speakers, and playtesting with the intended child. Browser touch tests emulate a 390 × 844 phone in Chromium and tablet layouts in Chromium/WebKit; they are not a substitute for testing the actual iPad and its iPadOS version. Adjust comfort, pacing, and humor based on his response.
 
 ## Files
 
@@ -136,4 +137,4 @@ Physical touchscreen devices, Safari/iPadOS Home Screen installation and offline
 - `assets/apple-touch-icon.png`, `assets/icon-192.png`, `assets/icon-512.png`, `scripts/generate-icons.js` — Home Screen icons and their generator.
 - `scripts/build.js` — static deployment build and automatic offline cache versioning.
 - `server.js`, `package.json`, `package-lock.json` — local server and commands.
-- `tests/engine.test.js`, `tests/audio.test.js`, `tests/browser/game.spec.js`, `tests/browser/pwa.spec.js`, `playwright.config.js` — automated checks.
+- `tests/engine.test.js`, `tests/audio.test.js`, `tests/browser/game.spec.js`, `tests/browser/pwa.spec.js`, `tests/browser/tablet.spec.js`, `playwright.config.js` — automated checks.

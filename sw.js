@@ -1,6 +1,6 @@
 // The production build replaces this version with a hash of the site files.
 // Bump it when changing files served directly by the development server.
-const VERSION = 'v1';
+const VERSION = 'v2';
 const CACHE_PREFIX = `bahooky-${self.registration.scope}-`;
 const CACHE_NAME = `${CACHE_PREFIX}${VERSION}`;
 const APP_FILES = [

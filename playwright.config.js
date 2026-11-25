@@ -20,6 +20,15 @@ export default defineConfig({
   projects: [
     { name: 'desktop', use: { viewport: { width: 1280, height: 1000 }, hasTouch: true } },
     { name: 'touch-phone', use: { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 } },
+    {
+      name: 'ipad-webkit',
+      testMatch: '**/tablet.spec.js',
+      use: {
+        browserName: 'webkit', launchOptions: {},
+        viewport: { width: 768, height: 1024 },
+        isMobile: true, hasTouch: true, deviceScaleFactor: 2,
+      },
+    },
   ],
   webServer: {
     command: 'npm start',

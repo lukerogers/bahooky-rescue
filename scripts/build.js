@@ -28,6 +28,6 @@ async function hashDirectory(directory) {
 await hashDirectory(output);
 const workerPath = path.join(output, 'sw.js');
 const worker = await readFile(workerPath, 'utf8');
-await writeFile(workerPath, worker.replace("const VERSION = 'v1';", `const VERSION = '${hash.digest('hex').slice(0, 16)}';`));
+await writeFile(workerPath, worker.replace(/const VERSION = '[^']+';/, `const VERSION = '${hash.digest('hex').slice(0, 16)}';`));
 
 console.log('Built static site in dist/');

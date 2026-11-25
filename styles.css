@@ -31,7 +31,7 @@ button { -webkit-user-select: none; user-select: none; }
 .title-row { justify-content: space-between; gap: 16px; padding: 27px 0 28px; }
 .eyebrow { margin: 0 0 8px; font-size: 11px; font-weight: 800; letter-spacing: 2.1px; color: #7b8065; }
 .tiny-star { color: #bd8c42; margin-right: 6px; font-size: 16px; }
-h1 { margin: 0; font-size: clamp(36px, 5.2vw, 62px); line-height: 1.05; font-weight: 900; letter-spacing: -2.7px; }
+h1 { margin: 0; font-size: 48px; font-size: clamp(36px, 5.2vw, 62px); line-height: 1.05; font-weight: 900; letter-spacing: -2.7px; }
 h1 span { color: var(--green); position: relative; }
 h1 span::after { content: ''; position: absolute; height: 6px; border-radius: 50%; background: #f4cb78; left: 5px; right: -1px; bottom: -6px; transform: rotate(-2deg); }
 .tagline { margin: 16px 0 0; color: var(--muted); font-size: 14px; }
@@ -50,8 +50,10 @@ h1 span::after { content: ''; position: absolute; height: 6px; border-radius: 50
 .progress-dots { display: flex; gap: 5px; justify-content: flex-end; margin-top: 8px; }
 .progress-dot { display: block; width: 22px; height: 5px; background: #e7ebdf; border-radius: 5px; transition: background .2s; }
 .progress-dot.filled { background: #81a16b; }
-.world { height: clamp(520px, 49vw, 570px); position: relative; isolation: isolate; overflow: hidden; touch-action: none; overscroll-behavior: none; -webkit-user-select: none; user-select: none; background: #cde3b5; }
-.scenery, .scenery > svg, .props, .bears, .effects { position: absolute; inset: 0; width: 100%; height: 100%; }
+/* Older iPad WebKit drops clamp()/min() declarations and lacks inset.
+   Keep a concrete field height: all its artwork and controls are absolute. */
+.world { height: 570px; height: clamp(520px, 49vw, 570px); position: relative; isolation: isolate; overflow: hidden; touch-action: none; overscroll-behavior: none; -webkit-user-select: none; user-select: none; background: #cde3b5; }
+.scenery, .scenery > svg, .props, .bears, .effects { position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%; }
 .scenery, .props, .effects { pointer-events: none; }
 .location-sign { position: absolute; left: 23px; top: 20px; border: 1px solid #fff8; color: #506e48; padding: 7px 12px; background: #ffffe85c; border-radius: 9px; font-size: 11px; font-weight: 700; transform: rotate(-2deg); }
 #location-icon { margin-right: 4px; font-size: 16px; }
@@ -59,7 +61,7 @@ h1 span::after { content: ''; position: absolute; height: 6px; border-radius: 50
 .ground-urn { width: 64px; height: 70px; position: absolute; transform: translate(-50%, -50%) rotate(9deg); opacity: .85; }
 .ground-urn[hidden] { display: none; }
 .ground-urn svg { width: 100%; height: 100%; }
-.bear { border: 0; background: transparent; position: absolute; width: clamp(132px, 15vw, 172px); height: 166px; transform: translate(-50%, -50%); padding: 0; touch-action: none; border-radius: 35%; overflow: visible; }
+.bear { border: 0; background: transparent; position: absolute; width: 15vw; min-width: 132px; max-width: 172px; height: 166px; transform: translate(-50%, -50%); padding: 0; touch-action: none; border-radius: 35%; overflow: visible; }
 .bear:disabled { opacity: 1; pointer-events: none; }
 .bear:focus-visible { outline: 4px dashed #896230; outline-offset: 3px; background: #fff5; }
 .bear-art { width: 100%; height: 100%; overflow: visible; display: block; }
@@ -109,10 +111,10 @@ h1 span::after { content: ''; position: absolute; height: 6px; border-radius: 50
 .unlocked .sticker-check { background: #7f9c66; color: #fff; font-size: 10px; }
 footer { text-align: center; font-size: 10px; color: #969783; margin-top: 25px; line-height: 1.8; }
 footer > span { color: #b8a77e; margin: 0 10px; }
-.overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 150; background: #e2edd863; backdrop-filter: blur(3px); padding: 16px; }
+.overlay { position: absolute; top: 0; right: 0; bottom: 0; left: 0; display: flex; align-items: center; justify-content: center; z-index: 150; background: #e2edd863; backdrop-filter: blur(3px); padding: 16px; }
 .overlay.hidden { display: none; }
 .theme-night .overlay { background: #273b6359; }
-.overlay-card { text-align: center; width: min(465px, 100%); padding: 23px 28px 21px; border-radius: 26px; background: #fffaf0; border: 2px solid #fffdf8; box-shadow: 0 7px 0 #57614420, 0 18px 45px #3a4b3021; position: relative; }
+.overlay-card { text-align: center; width: 100%; max-width: 465px; padding: 23px 28px 21px; border-radius: 26px; background: #fffaf0; border: 2px solid #fffdf8; box-shadow: 0 7px 0 #57614420, 0 18px 45px #3a4b3021; position: relative; }
 .overlay-card h2 { margin: 6px 0 11px; font-size: 34px; line-height: 1.08; letter-spacing: -1.1px; font-weight: 900; }
 .overlay-card h2 span { color: var(--green); }
 .overlay-card p { font-size: 13px; color: #85826e; line-height: 1.6; margin: 0 0 15px; }
@@ -183,7 +185,7 @@ footer > span { color: #b8a77e; margin: 0 10px; }
   .tool-button { padding: 10px; border-radius: 11px; font-size: 11px; gap: 5px; min-height: 44px; }
   #sound-icon, #pause-icon { font-size: 17px; }
   .title-row { padding: 21px 0 20px; gap: 9px; }
-  h1 { font-size: clamp(30px, 8.4vw, 49px); letter-spacing: -1.7px; }
+  h1 { font-size: 30px; font-size: clamp(30px, 8.4vw, 49px); letter-spacing: -1.7px; }
   .eyebrow { font-size: 8px; letter-spacing: 1.1px; margin-bottom: 8px; }
   .tiny-star { font-size: 11px; margin-right: 3px; }
   .tagline { font-size: 10px; margin-top: 12px; max-width: 230px; line-height: 1.5; }
