@@ -1,6 +1,6 @@
 # Bahooky Rescue!
 
-A small, cheerful browser game about bears with urns stuck on their **bahookies**. Built with plain HTML, CSS, JavaScript, and original inline SVG artwork. No runtime dependencies, external assets, ads, accounts, or network requests beyond the local game files.
+A small, simple, cheerful browser game about bears with urns stuck on their **bahookies**. Built with plain HTML, CSS, JavaScript, and original inline SVG artwork. No runtime dependencies, external assets, ads, accounts, or network requests beyond the local game files.
 
 ## Run
 
